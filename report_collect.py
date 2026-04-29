@@ -222,9 +222,8 @@ if submitted:
                         file_options={"content-type": uploaded_file.type or "application/octet-stream"}
                     )
 
-                file_url = supabase.storage \
-                    .from_("ai-contest-files") \
-                    .get_public_url(safe_name)
+                SUPABASE_URL = st.secrets["SUPABASE_URL"]
+                file_url = f"{SUPABASE_URL}/storage/v1/object/public/ai-contest-files/{safe_name}"
 
                 supabase.table("submissions").insert({
                     "org"      : org.strip(),
