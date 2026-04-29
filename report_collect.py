@@ -1,6 +1,7 @@
 import streamlit as st
 from supabase import create_client, Client
 from datetime import datetime
+import re
 
 st.set_page_config(
     page_title="AI 경진대회 출품",
