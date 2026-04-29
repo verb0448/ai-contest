@@ -205,8 +205,13 @@ if submitted:
     else:
         with st.spinner("제출 중..."):
             try:
-                timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
-                safe_name  = f"{org.strip()}_{name.strip()}_{timestamp}_{uploaded_file.name}"
+                # 파일 확장자 추출
+                ext = uploaded_file.name.rsplit('.', 1)[-1] if '.' in uploaded_file.name else 'bin'
+                
+                # Storage 키: 타임스탬프만 사용 (한글/특수문자 제거)
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                safe_name = f"{timestamp}.{ext}"   # ← 영문+숫자만
+                
                 file_bytes = uploaded_file.read()
 
                 supabase.storage \
@@ -224,7 +229,7 @@ if submitted:
                 supabase.table("submissions").insert({
                     "org"      : org.strip(),
                     "name"     : name.strip(),
-                    "file_name": uploaded_file.name,
+                    "file_name": uploaded_file.name,  # 원본 파일명은 DB에 저장
                     "file_url" : file_url,
                 }).execute()
 
