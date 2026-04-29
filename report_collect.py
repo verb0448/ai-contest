@@ -211,10 +211,8 @@ if submitted:
                 
                 # Storage 키: 타임스탬프만 사용 (한글/특수문자 제거)
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                org_safe  = re.sub(r'[^A-Za-z0-9]', '', org.strip())   # 영문/숫자만
-                name_safe = re.sub(r'[^A-Za-z0-9]', '', name.strip())  # 영문/숫자만
-                file_safe = re.sub(r'[^A-Za-z0-9_\-\.]', '', uploaded_file.name)  # 원본파일명 특수문자 제거
-                safe_name = f"{timestamp}_{org_safe}_{name_safe}_{file_safe}"
+                file_safe = uploaded_file.name.replace(" ", "_")
+                safe_name = f"{timestamp}_{file_safe}"
                 
                 file_bytes = uploaded_file.read()
 
