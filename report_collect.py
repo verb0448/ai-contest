@@ -211,8 +211,8 @@ if submitted:
                 
                 # Storage 키: 타임스탬프만 사용 (한글/특수문자 제거)
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                file_safe = re.sub(r'[^\w\.]', '_', uploaded_file.name)
-                safe_name = f"{timestamp}_{file_safe}"
+                ext       = uploaded_file.name.rsplit('.', 1)[-1] if '.' in uploaded_file.name else 'bin'
+                safe_name = f"{timestamp}.{ext}"   # Storage: 타임스탬프만
                 
                 file_bytes = uploaded_file.read()
 
