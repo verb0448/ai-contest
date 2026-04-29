@@ -27,21 +27,16 @@ st.markdown("""
 #MainMenu, footer, header { visibility: hidden; }
 .stDeployButton { display: none !important; }
 
-/* ── 배경: 딥 네이비 + 청록 글로우 ── */
+/* ── 배경 ── */
 [data-testid="stAppViewContainer"] {
     background:
-        radial-gradient(ellipse 80% 55% at 20% 30%,
-            rgba(0, 180, 200, 0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 45% at 80% 70%,
-            rgba(0, 120, 180, 0.22) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 35% at 55% 10%,
-            rgba(0, 200, 220, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 55% at 20% 30%, rgba(0,180,200,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 80% 70%, rgba(0,120,180,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 55% 10%, rgba(0,200,220,0.12) 0%, transparent 55%),
         linear-gradient(160deg, #020a18 0%, #030d20 40%, #021018 70%, #030e22 100%);
     background-attachment: fixed;
     min-height: 100vh;
 }
-
-/* 별 효과 */
 [data-testid="stAppViewContainer"]::before {
     content: "";
     position: fixed; inset: 0;
@@ -51,10 +46,7 @@ st.markdown("""
         radial-gradient(1.5px 1.5px at 80% 8%,  rgba(255,255,255,0.50) 0%, transparent 100%),
         radial-gradient(1px 1px at 8%  55%, rgba(255,255,255,0.30) 0%, transparent 100%),
         radial-gradient(1px 1px at 92% 45%, rgba(255,255,255,0.35) 0%, transparent 100%),
-        radial-gradient(1px 1px at 38% 82%, rgba(255,255,255,0.30) 0%, transparent 100%),
-        radial-gradient(1px 1px at 68% 88%, rgba(255,255,255,0.45) 0%, transparent 100%),
-        radial-gradient(2px 2px at 48% 42%, rgba(0,200,255,0.35)  0%, transparent 100%),
-        radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,0.30) 0%, transparent 100%);
+        radial-gradient(2px 2px at 48% 42%, rgba(0,200,255,0.35) 0%, transparent 100%);
     pointer-events: none; z-index: 0;
 }
 
@@ -69,10 +61,7 @@ st.markdown("""
     -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
     border: 1px solid rgba(0,200,230,0.18) !important;
     border-radius: 24px !important;
-    box-shadow:
-        0 8px 40px rgba(0,0,0,0.50),
-        0 0 60px rgba(0,150,200,0.08),
-        inset 0 1px 0 rgba(0,220,255,0.12) !important;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.50), inset 0 1px 0 rgba(0,220,255,0.12) !important;
 }
 
 /* ── 라벨 ── */
@@ -98,10 +87,8 @@ div[data-baseweb="input"] input {
     font-weight: 600 !important;
     padding: 12px 18px !important;
     caret-color: #00d4ff !important;
-    transition: all 0.25s !important;
 }
-[data-testid="stTextInput"] input:focus,
-div[data-baseweb="input"] input:focus {
+[data-testid="stTextInput"] input:focus {
     background: rgba(0,200,255,0.10) !important;
     border-color: rgba(0,210,255,0.70) !important;
     box-shadow: 0 0 0 3px rgba(0,180,230,0.18) !important;
@@ -117,35 +104,20 @@ div[data-baseweb="base-input"] {
     box-shadow: none !important;
 }
 
-/* ── 파일 업로더 컨테이너 ── */
+/* ── 파일 업로더: 컨테이너만 스타일 (버튼 CSS 제거 → 이중 텍스트 방지) ── */
 [data-testid="stFileUploader"] section {
     background: rgba(0,200,255,0.06) !important;
     border: 1px solid rgba(0,200,230,0.25) !important;
     border-radius: 16px !important;
 }
 [data-testid="stFileUploader"] section small,
-[data-testid="stFileUploader"] section span {
+[data-testid="stFileUploader"] section span:not([data-testid]) {
     color: rgba(160,230,255,0.70) !important;
     font-family: 'Pretendard', sans-serif !important;
 }
-/* Browse files 버튼 - 중복 방지 위해 최소 스타일만 */
-[data-testid="stFileUploader"] section button {
-    border: 1px solid rgba(0,200,230,0.35) !important;
-    border-radius: 50px !important;
-    background: rgba(0,150,200,0.15) !important;
-    color: rgba(160,230,255,0.90) !important;
-    font-family: 'Pretendard', sans-serif !important;
-    font-weight: 600 !important;
-}
 
-/* ── 제출 버튼 (wrapper 전체 100%) ── */
-[data-testid="stFormSubmitButton"] {
-    width: 100% !important;
-    display: block !important;
-}
+/* ── 제출 버튼 (use_container_width로 너비 해결, CSS는 색상만) ── */
 [data-testid="stFormSubmitButton"] > button {
-    width: 100% !important;
-    display: block !important;
     background: linear-gradient(135deg, #00b4d8, #0077b6) !important;
     color: #ffffff !important;
     border: none !important;
@@ -153,13 +125,8 @@ div[data-baseweb="base-input"] {
     font-family: 'Pretendard', sans-serif !important;
     font-size: 15px !important;
     font-weight: 800 !important;
-    min-height: 52px !important;
-    padding: 14px 20px !important;
     letter-spacing: 0.5px !important;
-    margin-top: 8px !important;
-    cursor: pointer !important;
     box-shadow: 0 4px 20px rgba(0,150,200,0.40) !important;
-    transition: all 0.25s !important;
 }
 [data-testid="stFormSubmitButton"] > button:hover {
     background: linear-gradient(135deg, #00c8f0, #0088cc) !important;
@@ -170,10 +137,9 @@ div[data-baseweb="base-input"] {
     color: #ffffff !important;
     font-size: 15px !important;
     font-weight: 800 !important;
-    margin: 0 !important;
 }
 
-/* ── 알림 메시지 ── */
+/* ── 알림 ── */
 [data-testid="stAlert"] {
     background: rgba(0,150,200,0.12) !important;
     border: 1px solid rgba(0,200,230,0.25) !important;
@@ -181,7 +147,6 @@ div[data-baseweb="base-input"] {
 }
 [data-testid="stAlert"] p { color: #ffffff !important; }
 
-/* 힌트 */
 .hint-text {
     font-size: 11px !important;
     color: rgba(255,210,100,0.85) !important;
@@ -193,8 +158,7 @@ div[data-baseweb="base-input"] {
 .custom-divider {
     width: 48px; height: 2px;
     background: linear-gradient(90deg, transparent, rgba(0,200,255,.7), transparent);
-    margin: 6px auto 24px;
-    border-radius: 2px;
+    margin: 6px auto 24px; border-radius: 2px;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -216,7 +180,6 @@ st.markdown(f"""
 
 # ── 폼 ─────────────────────────────────────────────────────────
 with st.form("submission_form", clear_on_submit=True):
-
     org = st.text_input("조직", placeholder="소속 조직을 입력하세요")
     st.markdown(
         '<p class="hint-text">* 영업부문의 경우 총괄단위까지 기재</p>',
@@ -228,7 +191,8 @@ with st.form("submission_form", clear_on_submit=True):
         type=["doc","docx","pdf","ppt","pptx","xls","xlsx","hwp","hwpx","zip","png","jpg"],
         help="Word, PDF, HWP, PPT 등 제출 자료를 첨부해 주세요."
     )
-    submitted = st.form_submit_button("제출")
+    # use_container_width=True → 버튼 너비 100% (CSS 불필요)
+    submitted = st.form_submit_button("제출", use_container_width=True)
 
 # ── 제출 처리 ──────────────────────────────────────────────────
 if submitted:
@@ -264,7 +228,7 @@ if submitted:
                     "file_url" : file_url,
                 }).execute()
 
-                st.success("✅  제출이 완료되었습니다.\n\n참여해 주셔서 감사합니다!")
+                st.success("✅  제출이 완료되었습니다.  참여해 주셔서 감사합니다!")
 
             except Exception as e:
                 st.error(f"오류가 발생했습니다. 잠시 후 다시 시도해 주세요.\n\n{str(e)}")
